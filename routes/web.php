@@ -14,6 +14,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/admin', [HomeController::class, 'dash'])->name('admin');
-Route::resource('marcas', MarcaController::class);
-Route::resource('modelos', ModeloController::class);
+Route::get('/admin', [HomeController::class, 'dash'])->name('admin')->middleware('auth.admin');
+Route::resource('marcas', MarcaController::class)->middleware('auth.admin');
+Route::resource('modelos', ModeloController::class)->middleware('auth.admin');
+Route::get('/marcas-index', [MarcaController::class, 'index']);

@@ -2,14 +2,14 @@
     <v-container>
         <v-row justify="center">
             <v-col cols="12" md="6" class="" >
-                <v-data-table :headers="columnas" :items="modelos" :items-per-page="5" class="text-md "
+                <v-data-table :headers="columnas" :items="modelos" :items-per-page="5" class="text-md"
                     :pagination.sync="pagination" :prev-icon="'mdi-chevron-left'" :next-icon="'mdi-chevron-right'"
                     :first-icon="'mdi-page-first'" :last-icon="'mdi-page-last'">
                     <template v-slot:top>
                         <v-toolbar flat color="blue">
                             <v-toolbar-title class="text-h5">Modelos</v-toolbar-title>
                             <v-divider color="black" class="mx-2" inset vertical></v-divider>
-                            <v-btn color="black" dark small @click="openDialog">Nuevo Modelo</v-btn>
+                            <v-btn color="black" small @click="openDialog">Nuevo Modelo</v-btn>
                         </v-toolbar>
                     </template> 
                     <template v-slot:item.actions="{ item }">
@@ -53,18 +53,14 @@ export default {
     data() {
         return {
             dialog: false,
-            dialogDelete: false,
             editedIndex: -1,
             modelo: { id: null, nombre: "" },
             modelos: [],
             columnas: [
                 { title: "Nombre", value: "nombre" },
-                { title: "Acciones", value: "actions", class: 'text-h1' }
+                { title: "Acciones", value: "actions" }
             ]
         };
-    },
-    computed: {
-        formTitle() { return this.editedIndex === -1 ? 'Nuevo Modelo' : 'Editar Modelo'; }
     },
     methods: {
         async fetchModelos() {
@@ -184,6 +180,9 @@ export default {
                 }
             })
         },
+    },
+    computed: {
+        formTitle() { return this.editedIndex === -1 ? 'Nuevo Modelo' : 'Editar Modelo'; }
     },
     mounted() {
         this.fetchModelos();
